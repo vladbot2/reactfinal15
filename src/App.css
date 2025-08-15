@@ -40,3 +40,48 @@
 .read-the-docs {
   color: #888;
 }
+.task-form {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-form .input, 
+.task-form .textarea, 
+.task-form .select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.task-form .textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.task-form .row {
+  display: flex;
+  gap: 10px;
+}
+
+.task-form .btn {
+  background: #4cafef;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.task-form .btn:hover {
+  background: #369cd6;
+}

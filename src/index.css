@@ -66,26 +66,121 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-:root { --bg:#0f1115; --card:#121525; --text:#e8eef8; --muted:#9aa3bf; --primary:#6ea8ff; --danger:#ff6b6b; }
-*{ box-sizing: border-box; }
-body{ margin:0; font-family: Inter, system-ui, Arial; background:var(--bg); color:var(--text); }
-.container{ max-width:1100px; margin:24px auto; padding:20px; }
-.header h1{ margin:0 0 12px 0; }
-.grid{ display:grid; grid-template-columns: 1fr 320px; gap:16px; }
-@media(max-width:920px){ .grid{ grid-template-columns: 1fr; } }
-.card{ background:linear-gradient(180deg,#0b0f18,#0e1222); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); }
-.input{ width:100%; padding:10px 12px; border-radius:10px; background:#0b1220; border:1px solid #23283a; color:var(--text); }
-.btn{ padding:8px 12px; border-radius:10px; background:linear-gradient(180deg,#132040,#0b1730); color:var(--text); border:1px solid rgba(255,255,255,0.03); cursor:pointer; }
-.btn.primary{ background:linear-gradient(180deg,#2a5ec7,#14306d); }
-.btn.danger{ background:linear-gradient(180deg,#6b1f1f,#3a0f0f); }
-.row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.small{ font-size:13px; color:var(--muted); }
-.kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#0b1220; padding:4px 8px; border-radius:8px; border:1px solid #23283a; color:var(--muted); }
-.list{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
-.item{ display:flex; justify-content:space-between; gap:12px; padding:12px; border-radius:10px; background:linear-gradient(180deg,#0b1220,#07101a); border:1px solid #1d2436; align-items:flex-start; }
-.tag{ padding:4px 8px; border-radius:999px; border:1px solid #25304a; background:#0a1324; color:var(--muted); font-size:13px; }
-.badge{ padding:4px 8px; border-radius:999px; font-size:12px; }
-.badge.low{ background:#10221a; border:1px solid #234a33; }
-.badge.medium{ background:#211a12; border:1px solid #6b6a2b; }
-.badge.high{ background:#2a1518; border:1px solid #8b2b35; }
-.form-vertical .input{ margin-top:6px; }
+:root {
+  --bg-dark: #1e1e1e;
+  --bg-card: #2a2a2a;
+  --bg-input: #3a3a3a;
+  --text-light: #f5f5f5;
+  --primary: #4e9af1;
+  --primary-hover: #6bb3ff;
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Inter', system-ui, sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.app {
+  background-color: var(--bg-card);
+  padding: 25px;
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.task-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.task-form input,
+.task-form select {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: none;
+  background-color: var(--bg-input);
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.task-form input:focus,
+.task-form select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: none;
+  background: linear-gradient(135deg, var(--primary), #1c73d1);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:hover {
+  background: linear-gradient(135deg, var(--primary-hover), #2a85e6);
+  transform: translateY(-2px);
+}
+
+.task-item {
+  background-color: var(--bg-input);
+  padding: 15px;
+  margin: 8px 0;
+  border-radius: var(--radius);
+  transition: transform var(--transition), background var(--transition);
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.task-item:hover {
+  transform: translateY(-3px);
+  background-color: #444;
+}
+
+.priority-low {
+  background-color: #2e7d32;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.priority-medium {
+  background-color: #ff9800;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.priority-high {
+  background-color: #d32f2f;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

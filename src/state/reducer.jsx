@@ -1,35 +1,40 @@
-import { genId } from "../id.jsx";
-import { formatDate } from "../date.jsx";
+export const initialState = {
+  tasks: [],
+  projects: [{ id: "inbox", name: "Inbox" }]
+};
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
-    case "add":
-      return [
+    case "ADD_TASK":
+      return {
         ...state,
-        {
-          id: genId(),
-          text: action.payload.text,
-          description: action.payload.description,
-          date: action.payload.date || formatDate(),
-          completed: false,
-          tags: action.payload.tags || [],
-          priority: action.payload.priority || "low",
-          project: action.payload.project || null
-        }
-      ];
-    case "toggle":
-      return state.map(t =>
-        t.id === action.id ? { ...t, completed: !t.completed } : t
-      );
-    case "remove":
-      return state.filter(t => t.id !== action.id);
-    case "update":
-      return state.map(t =>
-        t.id === action.payload.id ? { ...t, ...action.payload.data } : t
-      );
+        tasks: [
+          ...state.tasks,
+          { ...action.payload, id: Date.now(), completed: false }
+        ]
+      };
+
+    case "REMOVE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.filter(t => t.id !== action.id)
+      };
+
+    case "TOGGLE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.map(t =>
+          t.id === action.id ? { ...t, completed: !t.completed } : t
+        )
+      };
+
+    case "ADD_PROJECT":
+      return {
+        ...state,
+        projects: [...state.projects, { id: Date.now().toString(), name: action.name }]
+      };
+
     default:
       return state;
   }
 }
-
-export default reducer;

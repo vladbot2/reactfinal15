@@ -1,35 +1,39 @@
-import React, { useState } from "react";
-import { TodoProvider } from "./state/context.jsx";
+import React from "react";
+import { useApp } from "./state/context.jsx";
 import TaskForm from "./components/TaskForm.jsx";
 import TaskList from "./components/TaskList.jsx";
 import ProjectManager from "./components/ProjectManager.jsx";
-import "./index.css";
+import Filters from "./components/Filters.jsx";
 
 export default function App() {
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
+  const { state, dispatch } = useApp();
 
   return (
-    <TodoProvider>
-      <div className="app">
-        <h1>Todo List</h1>
+    <div className="app">
+      <h1>Todo List</h1>
 
-        <TaskForm/>
-
-        <ProjectManager/>
-
-        <div className="section">
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..."/>
-          <select value={filter} onChange={e => setFilter(e.target.value)}>
-            <option value="all">All</option>
-            <option value="day">Today</option>
-            <option value="week">This Week</option>
-            <option value="month">This Month</option>
-          </select>
-        </div>
-
-        <TaskList filter={filter} search={search}/>
+      {/* Пошук */}
+      <div className="section">
+        <input
+          type="text"
+          placeholder="Пошук: назва, опис, теги або пріоритет…"
+          value={state.filters.search}
+          onChange={(e) =>
+            dispatch({ type: "SET_FILTERS", payload: { search: e.target.value } })
+          }
+        />
       </div>
-    </TodoProvider>
+
+      {/* Проєкти + Форма задачі */}
+      <ProjectManager />
+
+      <TaskForm />
+
+      {/* Фільтри/сортування */}
+      <Filters />
+
+      {/* Список завдань (фільтрація/сортування всередині) */}
+      <TaskList />
+    </div>
   );
 }
