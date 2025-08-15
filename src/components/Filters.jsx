@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useApp } from "../state/context.jsx";
 
-export default function Filters({ filter, setFilter }) {
+export default function ProjectManager() {
+  const { projects, addProject } = useApp();
+  const [name, setName] = useState("");
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    if (!name.trim()) return;
+    addProject(name);
+    setName("");
+  };
+  console.log(projects);
   return (
-    <div className="filters">
-      <button onClick={() => setFilter("all")} className={filter==="all"?"active":""}>All</button>
-      <button onClick={() => setFilter("day")} className={filter==="day"?"active":""}>Day</button>
-      <button onClick={() => setFilter("week")} className={filter==="week"?"active":""}>Week</button>
-      <button onClick={() => setFilter("month")} className={filter==="month"?"active":""}>Month</button>
+  
+    <div className="project-manager">
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Назва проєкту"
+      />
+      <button onClick={handleAdd}>Додати проєкт</button>
+
+      <div className="project-list">
+        {projects.map(p => (
+          <span key={p.id} className="tag">{p.name}</span>
+        ))}
+      </div>
     </div>
   );
 }
